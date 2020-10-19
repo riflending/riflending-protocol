@@ -50,7 +50,7 @@ describe('PriceOracleProxy', () => {
     });
 
     it("sets address of cEth", async () => {
-      let configuredCRBTC = await call(oracle, "cEthAddress");
+      let configuredCRBTC = await call(oracle, "cRBTCAddress");
       expect(configuredCRBTC).toEqual(cEth._address);
     });
 
