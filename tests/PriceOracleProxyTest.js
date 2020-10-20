@@ -49,7 +49,7 @@ describe('PriceOracleProxy', () => {
       expect(configuredOracle).toEqual(backingOracle._address);
     });
 
-    it("sets address of cEth", async () => {
+    it("sets address of cRBTC", async () => {
       let configuredCRBTC = await call(oracle, "cRBTCAddress");
       expect(configuredCRBTC).toEqual(cEth._address);
     });
