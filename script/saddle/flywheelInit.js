@@ -57,7 +57,7 @@ let getCTokenAddresses = (cTokenArgs) => {
 		'cDAI',
 		'cUSDT',
 		'cBAT',
-		'cRBTC',
+		'cETH',
 		'cSAI',
 		'cREP',
 		'cZRX',
