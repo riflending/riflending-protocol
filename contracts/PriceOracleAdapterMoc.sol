@@ -10,23 +10,20 @@ contract PriceOracleAdapterMoc is PriceOracleAdapter {
     /// @notice Address of the guardian
     address public guardian;
     /// @notice The price oracle, which will continue to serve prices for MoC
-    PriceProviderMoC internal priceProviderMoC;
+    PriceProviderMoC public priceProviderMoC;
 
     /**
      * @notice Construct empty
      */
     constructor(address guardian_) public {
         guardian = guardian_;
-        // priceProviderMoC = PriceProviderMoC(address(0));
     }
 
     /**
      * @notice Get the price of MoC
      * @return The price
      */
-    function assetPrices(address cTokenAddress) public view returns (uint256) {
-        //TODO
-        cTokenAddress;
+    function assetPrices(address) public view returns (uint256) {
         (bytes32 price, bool has) = priceProviderMoC.peek();
         require(has, "PriceOracleAdapterMoc: Oracle have no Price");
         return uint256(price);
@@ -52,7 +49,7 @@ contract PriceOracleAdapterMoc is PriceOracleAdapter {
         //emit event
         emit PriceOracleAdapterUpdated(
             oldPriceProviderAddress,
-            address(priceProviderAddress)
+           priceProviderAddress
         );
     }
 }

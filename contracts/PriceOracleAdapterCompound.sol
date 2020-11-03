@@ -17,17 +17,16 @@ contract PriceOracleAdapterCompound is PriceOracleAdapter {
         address cTokenAddress
     );
     /// @notice The price oracle, which will continue to serve prices of compound
-    V1PriceOracleInterface internal priceProviderInterface;
+    V1PriceOracleInterface public priceProviderInterface;
 
     // mapping(addressCtoken => addressKeyOracle);
-    mapping(address => address) public keyAddresses;
+    mapping(address => address) public oracleKeyAddress;
 
     /// @notice Frozen SAI price (or 0 if not set yet)
     uint256 public saiPrice;
 
     constructor(address guardian_) public {
         guardian = guardian_;
-        priceProviderInterface = V1PriceOracleInterface(address(0));
     }
 
     /**
@@ -37,9 +36,8 @@ contract PriceOracleAdapterCompound is PriceOracleAdapter {
      */
     function assetPrices(address cTokenAddress) public view returns (uint256) {
         //get keyAddress or undlerlyingAddress
-        //TODO sDai freeze price => deploy particualr v1Price(?)
-        address asset = (keyAddresses[cTokenAddress] != address(0))
-            ? address(keyAddresses[cTokenAddress])
+        address asset = (oracleKeyAddress[cTokenAddress] != address(0))
+            ? address(oracleKeyAddress[cTokenAddress])
             : address(CErc20(cTokenAddress).underlying());
         return priceProviderInterface.assetPrices(asset);
     }
@@ -88,14 +86,14 @@ contract PriceOracleAdapterCompound is PriceOracleAdapter {
         );
         //set old address
         address oldBtcPriceProviderAddress = address(
-            keyAddresses[cTokenAddress]
+            oracleKeyAddress[cTokenAddress]
         );
         //update key address
-        keyAddresses[cTokenAddress] = keyOracle;
+        oracleKeyAddress[cTokenAddress] = keyOracle;
         //emit event
         emit PriceOracleKeyUpdated(
             oldBtcPriceProviderAddress,
-            address(keyAddresses[cTokenAddress]),
+            address(oracleKeyAddress[cTokenAddress]),
             cTokenAddress
         );
     }
