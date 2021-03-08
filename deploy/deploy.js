@@ -252,19 +252,29 @@ module.exports = async (hardhat) => {
     // -------------------------- Deploy CTokerns ------------------------- //
     // ### Deploy cUSDT ### //
     console.log("\n  Deploy cUSDT...", usdt)
-    const cUsdtResult = await deploy("cUSDT", {
-        args: [usdt, newUnitrollerContract.address, usdtJumpRateModelV2Result.address, config.initialExchangeRateMantissa, "rLending cUSDT", "crUSDT", 8, deployer],
-        contract: "CErc20Immutable",
+    const cUsdtImplResult = await deploy("cUSDTImpl", {
+        args: [],
+        contract: "CErc20Delegate",
+        from: deployer,
+        skipIfAlreadyDeployed: true
+    })
+    const cUsdtResult = await deploy("cUSDTProxy", {
+        args: [usdt, newUnitrollerContract.address, usdtJumpRateModelV2Result.address, config.initialExchangeRateMantissa, "rLending cUSDT", "crUSDT", 8, deployer, cUsdtImplResult.address, ''],
+        contract: "CErc20Delegator",
         from: deployer,
         skipIfAlreadyDeployed: true
     })
 
     const cUsdtContract = await ethers.getContractAt(
-        "CErc20Immutable",
+        "CErc20Delegator",
         cUsdtResult.address,
         signer
     )
+
     if (cUsdtResult.newlyDeployed) {
+        console.log("\n  setAdapterToToken cUSDT...")
+        await priceOracleProxyContract.setAdapterToToken(cUsdtResult.address, usdtPriceOracleAdapterResult.address).then((tx) => tx.wait())
+
         console.log("\n  setAdapterToToken cUSDT...")
         await priceOracleProxyContract.setAdapterToToken(cUsdtResult.address, usdtPriceOracleAdapterResult.address).then((tx) => tx.wait())
 
@@ -285,14 +295,20 @@ module.exports = async (hardhat) => {
 
     // ### Deploy cRIF ### //
     console.log("\n  Deploy cRIF...")
-    const cRifResult = await deploy("cRIF", {
-        args: [rif, newUnitrollerContract.address, rifWhitePaperInterestRateModelResult.address, config.initialExchangeRateMantissa, "rLending RIF", "cRIF", 8, deployer],
-        contract: "CErc20Immutable",
+    const cRifImplResult = await deploy("cRIFImpl", {
+        args: [],
+        contract: "CErc20Delegate",
+        from: deployer,
+        skipIfAlreadyDeployed: true
+    })
+    const cRifResult = await deploy("cRIFProxy", {
+        args: [rif, newUnitrollerContract.address, rifWhitePaperInterestRateModelResult.address, config.initialExchangeRateMantissa, "rLending RIF", "cRIF", 8, deployer, cRifImplResult.address, ''],
+        contract: "CErc20Delegator",
         from: deployer,
         skipIfAlreadyDeployed: true
     })
     const cRifContract = await ethers.getContractAt(
-        "CErc20Immutable",
+        "CErc20Delegator",
         cRifResult.address,
         signer
     )
@@ -317,12 +333,6 @@ module.exports = async (hardhat) => {
 
     // ### Deploy cRBTC ### //
     console.log("\n  Deploy cRBTC...")
-    const cRbtcResult = await deploy("CRBTC", {
-        args: [newUnitrollerContract.address, btcWhitePaperInterestRateModelResult.address, config.initialExchangeRateMantissa, "rLending RBTC", "cRBTC", 8, deployer],
-        contract: "CRBTC",
-        from: deployer,
-        skipIfAlreadyDeployed: true
-    })
     const cRbtcContract = await ethers.getContractAt(
         "CRBTC",
         cRbtcResult.address,
