@@ -240,12 +240,13 @@ module.exports = async (hardhat) => {
         from: deployer,
         skipIfAlreadyDeployed: true
     })
-    console.log("\n  Deploy RIF WhitePaperInterestRateModel...")
-    const rifWhitePaperInterestRateModelResult = await deploy("RifWhitePaperInterestRateModel", {
-        args: [parseEther('0.02'), parseEther('0.3')],
-        contract: "WhitePaperInterestRateModel",
+    console.log("\n  Deploy RIF JumpRateModelV2...")
+    const rifInterestRateModelResult = await deploy("RifJumpRateModelV2", {
+        // 2% base rate, 30% borrow rate at kink, Kink at 80%, 150% borrow rate at 100% utilization
+        args: [parseEther('0.02'), parseEther('0.30'), parseEther('6'), parseEther('0.8'), multiSig],
+        contract: "JumpRateModelV2",
         from: deployer,
-        skipIfAlreadyDeployed: true
+        skipIfAlreadyDeployed: false
     })
     // --------------------- End Deploy InterestRateModel ----------------- //
 
@@ -286,7 +287,7 @@ module.exports = async (hardhat) => {
     // ### Deploy cRIF ### //
     console.log("\n  Deploy cRIF...")
     const cRifResult = await deploy("cRIF", {
-        args: [rif, newUnitrollerContract.address, rifWhitePaperInterestRateModelResult.address, config.initialExchangeRateMantissa, "rLending RIF", "cRIF", 8, deployer],
+        args: [rif, newUnitrollerContract.address, rifInterestRateModelResult.address, config.initialExchangeRateMantissa, "rLending RIF", "cRIF", 8, deployer],
         contract: "CErc20Immutable",
         from: deployer,
         skipIfAlreadyDeployed: true
@@ -411,7 +412,7 @@ module.exports = async (hardhat) => {
     console.log("  - RBTC PriceOracleAdapter:         ", rbtcPriceOracleAdapterResult.address)
     console.log("  - Comptroller (Logic):             ", comptrollerResult.address)
     console.log("  - USDT JumpRateModelV2:            ", usdtJumpRateModelV2Result.address)
-    console.log("  - RIF WhitePaperInterestRateModel: ", rifWhitePaperInterestRateModelResult.address)
+    console.log("  - RIF JumpRateInterestRateModel: ", rifInterestRateModelResult.address)
     console.log("  - BTC WhitePaperInterestRateModel: ", btcWhitePaperInterestRateModelResult.address)
     console.log("  - crUSDT:                          ", cUsdtResult.address)
     console.log("  - cRIF:                            ", cRifResult.address)

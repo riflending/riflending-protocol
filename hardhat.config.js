@@ -46,6 +46,10 @@ const config = {
     },
     admin2: {
       31: "0x170346689cc312d8e19959bc68c3ad03e72c9850"
+    },
+    multiSig: {
+      30: "0x2992181d390c5f35a70c8012a8a6a4a6b7603a37",
+      31: "0x9760d4a155058f6bec8d9fd8d50222073e57083e"
     }
   }
 };
