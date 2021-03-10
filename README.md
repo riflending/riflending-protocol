@@ -69,7 +69,7 @@ We detail a few of the core contracts in the rLending protocol.
 | :------------------|:------------- |:-------- |
 | Unitroller (Comptroller Proxy)  | [0x57f3edae1d2a109f0d5e4e6269aca2f532cdbaaa](https://explorer.rsk.co/address/0x57f3edae1d2a109f0d5e4e6269aca2f532cdbaaa?__ctab=Code) | [0x3a983c7597b3ac4fbc3e0cf484d7631d70d04c05](https://explorer.testnet.rsk.co/address/0x3a983c7597b3ac4fbc3e0cf484d7631d70d04c05?__ctab=Code) |
 | cRIF           | [0xb7ff2c56c897562c0aa6747d2679d35f5e937492](https://explorer.rsk.co/address/0xb7ff2c56c897562c0aa6747d2679d35f5e937492?__ctab=Code) | [0x4664d4cbd5104a0e974354724cbc8e0d9bd1aca3](https://explorer.testnet.rsk.co/address/0x4664d4cbd5104a0e974354724cbc8e0d9bd1aca3?__ctab=Code) |
-| cRBTC          | [0x872664a885a1995d754e3666a23fad5c801401c4](https://explorer.rsk.co/address/0x872664a885a1995d754e3666a23fad5c801401c4?__ctab=Code) | [0xc19f0882bf318c9f8767c7d520018888e878417b](https://explorer.testnetrsk.co/address/0xc19f0882bf318c9f8767c7d520018888e878417b?__ctab=Code) |
+| cRBTC          | [0x872664a885a1995d754e3666a23fad5c801401c4](https://explorer.rsk.co/address/0x872664a885a1995d754e3666a23fad5c801401c4?__ctab=Code) | [0xc19f0882bf318c9f8767c7d520018888e878417b](https://explorer.testnet.rsk.co/address/0xc19f0882bf318c9f8767c7d520018888e878417b?__ctab=Code) |
 | crUSDT         | [0xd256c121a507cadd2687599e27fa45e31b7c3199](https://explorer.rsk.co/address/0xd256c121a507cadd2687599e27fa45e31b7c3199?__ctab=Code) | [0xfd09f3349fdab173d162cd0e4669b591ed5a78fb](https://explorer.testnet.rsk.co/address/0xfd09f3349fdab173d162cd0e4669b591ed5a78fb?__ctab=Code) |
 
 Installation
