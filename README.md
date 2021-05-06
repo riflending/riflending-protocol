@@ -195,7 +195,7 @@ In .buil/launch.json (create if is necesary) add the follow:
 
 Audits/ Formal Verification
 ----------
-- [for version 0.2.1](./audit/rLending_Security_Audit_Final_Report_v210223.pdf "Audit Final Report")
+- [for version 0.2.1](https://github.com/riflending/rlending-protocol/blob/master/audit/rLending_Security_Audit_Final_Report_v210303.pdf)
 
 
 Security and Liability
